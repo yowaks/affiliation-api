@@ -1,0 +1,18 @@
+# Image PHP légère
+FROM php:8.2-cli
+
+# Installer Composer (gestionnaire PHP)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Dossier de l'app
+WORKDIR /app
+
+# Copier le code
+COPY . .
+
+# Installer la dépendance Stripe
+RUN composer install --no-dev --prefer-dist
+
+# Render fournit une variable $PORT — on l'utilise pour le serveur PHP
+ENV PORT=10000
+CMD ["sh", "-c", "php -S 0.0.0.0:${PORT}"]
