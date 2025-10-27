@@ -12,3 +12,4 @@ COPY . .
 
 ENV PORT=10000
 CMD ["sh", "-c", "php -S 0.0.0.0:${PORT}"]
+
